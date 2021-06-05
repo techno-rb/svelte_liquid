@@ -48,7 +48,11 @@
     <Card form={form} index={i} on:inputForm={inputForm} />
   {/each}
 
-  <Modal />
+  <Modal>
+    <p slot="header">Modal Header</p>
+    <p slot="body">Modal Body</p>
+    <p slot="footer">Modal Footer</p>
+  </Modal>
 </div>
 
 <style lang="scss">

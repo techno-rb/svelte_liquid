@@ -27,8 +27,16 @@
 <div class:modal={true} class:active={active}>
   <div class="overlay" />
   <div class="modal-container">
-    <button type="button" on:click={closeModal}>x</button>
-    <p>modal</p>
+    <button type="button" class="close" on:click={closeModal}>x</button>
+    <div class="modal-header">
+      <slot name="header"></slot>
+    </div>
+    <div class="modal-body">
+      <slot name="body"></slot>
+    </div>
+    <div class="modal-footer">
+      <slot name="footer"></slot>
+    </div>
   </div>
 </div>
 
@@ -54,6 +62,21 @@
     z-index: 100;
   }
   .modal-container {
+    background: white;
+    border: solid 1px gray;
+    border-radius: 3px;
+    box-shadow: grey 5px 5px 5px;
+    width: 400px;
+    height: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
     z-index: 110;
+
+    button.close {
+      position: absolute;
+      right: 2px;
+      top: 2px;
+    }
   }
 </style>
