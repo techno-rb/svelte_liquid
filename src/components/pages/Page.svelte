@@ -2,6 +2,7 @@
   import { rootState } from '../../store/index';
   import type { FormType } from '../../store/types';
   import Card from '../organisms/Card.svelte';
+  import Modal from '../organisms/Modal.svelte';
 
   let formList: FormType[];
   rootState.formList.subscribe(list => {
@@ -45,6 +46,8 @@
   {#each formList as form, i}
     <Card form={form} index={i} on:inputForm={inputForm} />
   {/each}
+
+  <Modal />
 </div>
 
 <style lang="scss">
