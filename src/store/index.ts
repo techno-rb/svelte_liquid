@@ -1,11 +1,11 @@
-import { Writable, writable } from 'svelte/store';
-import type { FormType } from './types';
+import { writable } from 'svelte/store';
+import type { ModalStateType, RootStateType } from './types';
 
-export type RootStateType = {
-  formList: Writable<FormType[]>,
-};
 
 export const rootState: RootStateType = {
-  // width: writable(0),
   formList: writable([]),
 };
+
+export const modalState: ModalStateType = {
+  active: writable(false),
+}

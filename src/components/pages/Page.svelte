@@ -2,7 +2,7 @@
   import { rootState } from '../../store/index';
   import type { FormType } from '../../store/types';
   import Card from '../organisms/Card.svelte';
-  import Modal from '../organisms/Modal.svelte';
+  import Modal, { showModal } from '../organisms/Modal.svelte';
 
   let formList: FormType[];
   rootState.formList.subscribe(list => {
@@ -24,12 +24,13 @@
       return list;
     })
   };
+
 </script>
 
 <div class="container__header">
   <div class="d-flex">
     <div class="header__add-card-btn">
-      <button type="button" on:click={increment}>+</button>
+      <button type="button" on:click={showModal}>+</button>
     </div>
     <div class="header__total-label">
       <span>総額：</span>

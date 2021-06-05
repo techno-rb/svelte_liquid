@@ -1,6 +1,33 @@
-<div class="modal">
+<script lang="ts" context="module">
+  export const showModal = () => {
+    modalState.active.update(state => {
+      state = true;
+      return state;
+    })
+  };
+
+</script>
+
+<script lang="ts">
+  import { modalState } from '../../store/index';
+
+  let active;
+  modalState.active.subscribe(state => {
+    active = state;
+  });
+
+  const closeModal = () => {
+    modalState.active.update(state => {
+      state = false;
+      return state;
+    })
+  }
+</script>
+
+<div class:modal={true} class:active={active}>
   <div class="overlay" />
   <div class="modal-container">
+    <button type="button" on:click={closeModal}>x</button>
     <p>modal</p>
   </div>
 </div>
@@ -24,5 +51,9 @@
     height: 100vh;
     background-color: gray;
     opacity: 0.5;
+    z-index: 100;
+  }
+  .modal-container {
+    z-index: 110;
   }
 </style>
