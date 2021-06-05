@@ -1,22 +1,34 @@
 <script lang="ts">
-  import { rootStore } from '../../store/index';
+  import { rootState } from '../../store/index';
+  import type { FormType } from '../../store/types';
   import Card from '../organisms/Card.svelte';
 
-  rootStore.width.subscribe(val => alert(val));
+  let formList: FormType[];
+  rootState.formList.subscribe(list => {
+    console.log("subscribe list is ", list);
+    formList = list;
+  });
 
   const increment = () => {
-    rootStore.width.update(val => val + 1);
-  }
-  const decrement = () => {
-    rootStore.width.update(val => val - 1);
-  }
+    rootState.formList.update(list => {
+      list.push({ name: '' });
+      return list;
+    });
+  };
+
+  const inputForm = (customEvent) => {
+    console.log(customEvent.detail);
+    rootState.formList.update(list => {
+      list[customEvent.detail.index].name = customEvent.detail.value;
+      return list;
+    })
+  };
 </script>
 
 <div class="container__header">
   <div class="d-flex">
     <div class="header__add-card-btn">
       <button type="button" on:click={increment}>+</button>
-      <button type="button" on:click={decrement}>-</button>
     </div>
     <div class="header__total-label">
       <span>総額：</span>
@@ -30,7 +42,9 @@
   </div>
 </div>
 <div class="container__content">
-  <Card />
+  {#each formList as form, i}
+    <Card form={form} index={i} on:inputForm={inputForm} />
+  {/each}
 </div>
 
 <style lang="scss">
